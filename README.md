@@ -9,6 +9,9 @@
 
 This project is part of the 100xDevs Cohort. It includes a backend built with MongoDB, Express, and Zod for validation, and a frontend built with React, Tailwind CSS, and NextUI.
 
+## Key Feature
+-Persistent Login (using local storage)
+
 ## Backend
 
 ### Technologies Used
