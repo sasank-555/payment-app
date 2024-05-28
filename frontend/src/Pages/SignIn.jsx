@@ -3,6 +3,7 @@ import { Input, button } from "@nextui-org/react";
 import { Button, ButtonGroup } from "@nextui-org/react";
 import { FaEye } from "react-icons/fa";
 import { FaEyeSlash } from "react-icons/fa";
+import { Link } from "react-router-dom";
 const SignIn = () => {
   const [isVis, setIsVis] = useState(false);
   const [formData, setFormData] = useState({
@@ -62,6 +63,12 @@ const SignIn = () => {
         >
           SignIn
         </Button>
+        <p className="text-sm">
+          New User?{" "}
+          <Link to="/signup" className="underline">
+            signup
+          </Link>
+        </p>
       </div>
     </div>
   );

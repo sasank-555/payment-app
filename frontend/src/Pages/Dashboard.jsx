@@ -1,4 +1,5 @@
 import React from "react";
+import { FaSearch } from "react-icons/fa";
 import {
   Navbar,
   NavbarBrand,
@@ -21,7 +22,9 @@ const Dashboard = () => {
       <Navbar isBordered>
         <NavbarContent justify="start">
           <NavbarBrand className="mr-4">
-            <p className="hidden sm:block font-bold text-inherit">PayTM</p>
+            <p className="hidden sm:block font-bold text-inherit">
+              Payment <span className="text-blue-500">App</span>
+            </p>
           </NavbarBrand>
         </NavbarContent>
         <NavbarContent className="hidden sm:flex gap-3" justify="center">
@@ -74,8 +77,9 @@ const Dashboard = () => {
       <div className="text-2xl my-6 justify-start font-bold text-center">
         Your Balance is <span className="text-blue-500">69</span>$
       </div>
-      <div className="w-10/12 mx-auto">
-        <div className="font-bold mb-5">Users</div>
+      <div className="w-10/12 mx-auto gap-5 flex flex-col">
+        <div className="font-bold ">Users</div>
+        <Input placeholder="search for users" startContent={<FaSearch />} />
         <Users />
       </div>
     </div>

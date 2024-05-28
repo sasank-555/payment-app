@@ -3,19 +3,21 @@ import { Input, button } from "@nextui-org/react";
 import { Button, ButtonGroup } from "@nextui-org/react";
 import { FaEye } from "react-icons/fa";
 import { FaEyeSlash } from "react-icons/fa";
+import { Link } from "react-router-dom";
+import { axios } from "axios";
 const SignUp = () => {
   const [isVis, setIsVis] = useState(false);
   const [formData, setFormData] = useState({
-    email: "",
-    password: "",
+    username: "",
     firstname: "",
     lastname: "",
+    password: "",
   });
   const changeHandler = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
   const submitHandler = () => {
-    console.log(formData);
+    axios.post("http://localhost:3000/api/v1/user/signup", formData);
   };
   return (
     <div className="flex bg-slate-200 w-full h-[100vh] justify-center items-center">
@@ -23,8 +25,8 @@ const SignUp = () => {
         <h1 className="font-bold text-4xl mb-3">SignUp</h1>
         <Input
           type="email"
-          name="email"
-          value={formData.email}
+          name="username"
+          value={formData.username}
           label="Email"
           className="max-w-xs"
           variant="faded"
@@ -84,6 +86,12 @@ const SignUp = () => {
         >
           SignUp
         </Button>
+        <p className="text-sm">
+          Existing User?
+          <Link to="/signin" className="underline">
+            signin
+          </Link>
+        </p>
       </div>
     </div>
   );
