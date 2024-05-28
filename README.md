@@ -1,3 +1,7 @@
+![image](https://github.com/sasank-555/payment-app/assets/157773996/d866c1b1-c674-4051-b490-b639c4056c23)
+![image](https://github.com/sasank-555/payment-app/assets/157773996/2ec14266-fc66-47aa-aea5-2926a4b59e53)
+![image](https://github.com/sasank-555/payment-app/assets/157773996/c216f3b3-5931-438f-88dc-55f362f98edb)
+![image](https://github.com/sasank-555/payment-app/assets/157773996/03e3f9a8-2fde-4370-8dcd-19663ef49d61)
 
 
 # 🌟 PayTM Clone 🌟
