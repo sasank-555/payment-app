@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Slider, Button, Avatar, Input } from "@nextui-org/react";
 import { useSearchParams } from "react-router-dom";
 import axios from "axios"; // Ensure axios is imported
+import toast, { Toaster } from "react-hot-toast";
 
 const Send = () => {
   const [amount, setAmount] = useState("");
@@ -11,26 +12,19 @@ const Send = () => {
   const name = searchParams.get("name");
   const email = searchParams.get("u");
 
-  const submitHandler = () => {
-    axios
-      .post(
-        "http://localhost:3000/api/v1/accounts/transfer",
-        {
-          to: id,
-          amount: amount,
+  const submitHandler = async () => {
+    const response = await axios.post(
+      "http://localhost:3000/api/v1/accounts/transfer",
+      {
+        to: id,
+        amount: amount,
+      },
+      {
+        headers: {
+          authorization: "bearer " + localStorage.getItem("token"),
         },
-        {
-          headers: {
-            authorization: "bearer " + localStorage.getItem("token"),
-          },
-        }
-      )
-      .then((response) => {
-        console.log("Transfer successful:", response.data);
-      })
-      .catch((error) => {
-        console.error("Transfer error:", error);
-      });
+      }
+    );
   };
 
   return (
@@ -68,10 +62,19 @@ const Send = () => {
           variant="shadow"
           className="max-w-md"
           fullWidth={true} // Corrected the fullWidth prop
-          onClick={submitHandler} // Corrected to invoke submitHandler
+          onClick={() => {
+            const myPromise = submitHandler();
+
+            toast.promise(myPromise, {
+              loading: "Loading",
+              success: "Transfered",
+              error: "Error when fetching",
+            });
+          }}
         >
           Send
         </Button>
+        <Toaster />
       </div>
     </div>
   );

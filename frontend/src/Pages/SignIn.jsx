@@ -4,7 +4,7 @@ import { Button, ButtonGroup } from "@nextui-org/react";
 import { FaEye } from "react-icons/fa";
 import { FaEyeSlash } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
-
+import toast, { Toaster } from "react-hot-toast";
 import axios from "axios";
 
 const SignIn = () => {
@@ -69,7 +69,15 @@ const SignIn = () => {
           color="primary"
           variant="shadow"
           fullWidth="true"
-          onClick={submitHandler}
+          onClick={() => {
+            const myPromise = submitHandler();
+
+            toast.promise(myPromise, {
+              loading: "Logging You In",
+              success: "Logged In",
+              error: "Error when fetching",
+            });
+          }}
         >
           SignIn
         </Button>
@@ -79,6 +87,7 @@ const SignIn = () => {
             signup
           </Link>
         </p>
+        <Toaster />
       </div>
     </div>
   );
