@@ -1,6 +1,9 @@
 import React from "react";
 import { Avatar, Card, CardHeader, Button } from "@nextui-org/react";
-const UserCard = () => {
+import { useNavigate } from "react-router-dom";
+const UserCard = (prop) => {
+  const navi = useNavigate();
+  const user = prop.user;
   return (
     <Card>
       <CardHeader className="justify-between">
@@ -9,18 +12,34 @@ const UserCard = () => {
             isBordered
             radius="full"
             size="md"
-            src="https://nextui.org/avatars/avatar-1.png"
+            src="https://upload.wikimedia.org/wikipedia/commons/9/99/Sample_User_Icon.png"
           />
           <div className="flex flex-col gap-1 items-start justify-center">
-            <h4 className="text-small font-semibold leading-none text-default-600">
-              Sasank Nasika
+            <h4 className="text-small font-semibold leading-none text-default-600 capitalize">
+              {user.firstname + user.lastname}
             </h4>
             <h5 className="text-small tracking-tight text-default-400">
-              @sasank
+              {user.username}
             </h5>
           </div>
         </div>
-        <Button color="primary" radius="full" size="sm" variant="ghost">
+        <Button
+          color="primary"
+          radius="full"
+          size="sm"
+          variant="ghost"
+          onClick={() =>
+            navi(
+              "/send?id=" +
+                user._id +
+                "&name=" +
+                user.firstname +
+                user.lastname +
+                "&u=" +
+                user.username
+            )
+          }
+        >
           Send Money
         </Button>
       </CardHeader>

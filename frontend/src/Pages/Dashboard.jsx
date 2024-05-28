@@ -1,5 +1,5 @@
-import React from "react";
-import { FaSearch } from "react-icons/fa";
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   Navbar,
   NavbarBrand,
@@ -13,10 +13,26 @@ import {
   DropdownMenu,
   Avatar,
 } from "@nextui-org/react";
-
+import axios from "axios";
 import Users from "../components/Users";
 
 const Dashboard = () => {
+  const [balance, setBalance] = useState(0);
+  const navigate = useNavigate();
+  useEffect(() => {
+    async function fetchBalance() {
+      const response = await axios.get(
+        "http://localhost:3000/api/v1/accounts/balance",
+        {
+          headers: {
+            authorization: "bearer " + localStorage.getItem("token"),
+          },
+        }
+      );
+      setBalance(response.data.balance);
+    }
+    fetchBalance();
+  }, []);
   return (
     <div className="flex flex-col gap-5">
       <Navbar isBordered>
@@ -67,7 +83,14 @@ const Dashboard = () => {
               <DropdownItem key="help_and_feedback">
                 Help & Feedback
               </DropdownItem>
-              <DropdownItem key="logout" color="danger">
+              <DropdownItem
+                key="logout"
+                color="danger"
+                onClick={() => {
+                  localStorage.setItem("token", "");
+                  navigate("/signin");
+                }}
+              >
                 Log Out
               </DropdownItem>
             </DropdownMenu>
@@ -75,11 +98,24 @@ const Dashboard = () => {
         </NavbarContent>
       </Navbar>
       <div className="text-2xl my-6 justify-start font-bold text-center">
-        Your Balance is <span className="text-blue-500">69</span>$
+        {localStorage.getItem("token") === "" ? (
+          <span>
+            Please
+            <Link to="/signin" className="text-blue-500">
+              {signin}
+            </Link>
+            first
+          </span>
+        ) : (
+          <span>
+            Your Balance is
+            <span className="text-blue-500">{balance.toPrecision(6)}</span>$
+          </span>
+        )}
       </div>
       <div className="w-10/12 mx-auto gap-5 flex flex-col">
         <div className="font-bold ">Users</div>
-        <Input placeholder="search for users" startContent={<FaSearch />} />
+
         <Users />
       </div>
     </div>

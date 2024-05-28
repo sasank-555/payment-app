@@ -108,6 +108,8 @@ router.get("/bulk", async (req, res) => {
         firstname: {
           $regex: filter,
         },
+      },
+      {
         lastname: {
           $regex: filter,
         },

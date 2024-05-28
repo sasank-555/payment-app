@@ -1,5 +1,11 @@
 const express = require("express");
+const cors = require("cors");
 const app = express();
+app.use(
+  cors({
+    origin: "http://localhost:5173",
+  })
+);
 const rootRouter = require("./routes/index");
 const { JWT_SECRET } = require("./config");
 const jwt = require("jsonwebtoken");

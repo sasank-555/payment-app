@@ -3,10 +3,13 @@ import { Input, button } from "@nextui-org/react";
 import { Button, ButtonGroup } from "@nextui-org/react";
 import { FaEye } from "react-icons/fa";
 import { FaEyeSlash } from "react-icons/fa";
-import { Link } from "react-router-dom";
-import { axios } from "axios";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
+useNavigate;
+
 const SignUp = () => {
   const [isVis, setIsVis] = useState(false);
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     username: "",
     firstname: "",
@@ -16,8 +19,13 @@ const SignUp = () => {
   const changeHandler = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
-  const submitHandler = () => {
-    axios.post("http://localhost:3000/api/v1/user/signup", formData);
+  const submitHandler = async () => {
+    const response = await axios.post(
+      "http://localhost:3000/api/v1/user/signup",
+      formData
+    );
+    localStorage.setItem("token", response.data.token);
+    navigate("/dashboard");
   };
   return (
     <div className="flex bg-slate-200 w-full h-[100vh] justify-center items-center">
